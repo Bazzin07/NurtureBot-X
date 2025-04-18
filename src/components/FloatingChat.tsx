@@ -537,20 +537,27 @@ const FloatingChat: FC = () => {
       
       {isOpen && (
         <div
-          className={`fixed inset-0 sm:inset-auto sm:bottom-20 sm:right-6 sm:fixed bg-white border border-gray-200 sm:rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 ${
+          className={`fixed ${
+            // On mobile: fullscreen 
+            // On desktop: floating window properly positioned
+            window.innerWidth < 640 
+              ? 'inset-0' 
+              : 'bottom-20 right-6 rounded-2xl'
+          } bg-white border border-gray-200 shadow-2xl overflow-hidden transition-all duration-300 ${
+            // Size control based on maximized state (desktop only)
             isMaximized 
-              ? "sm:w-[600px] sm:h-[750px]" 
-              : "sm:w-[450px] sm:h-[650px]"
+              ? "sm:w-[480px] sm:h-[600px]" 
+              : "sm:w-[380px] sm:h-[520px]"
           }`}
         >
           {/* Enhanced Header */}
-          <div className="bg-gradient-to-r from-emerald-500 to-teal-600 px-4 sm:px-6 py-3 sm:py-4 border-b">
+          <div className="bg-gradient-to-r from-emerald-500 to-teal-600 px-4 sm:px-5 py-3 border-b">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="text-base sm:text-lg font-semibold text-white">NurtureBot X</h3>
-                <p className="text-emerald-50 text-xs sm:text-sm">AI Lead Assistant</p>
+                <h3 className="text-base font-semibold text-white">NurtureBot X</h3>
+                <p className="text-emerald-50 text-xs">AI Lead Assistant</p>
               </div>
-              <div className="flex items-center space-x-2 sm:space-x-3">
+              <div className="flex items-center space-x-2">
                 <LanguageSelector
                   selectedLanguage={currentLanguage}
                   onSelect={handleLanguageChange}
@@ -559,21 +566,21 @@ const FloatingChat: FC = () => {
                 />
                 <button 
                   onClick={() => setIsMaximized(!isMaximized)}
-                  className="text-white hover:bg-white/10 p-1.5 sm:p-2 rounded-full transition-colors hidden sm:block"
+                  className="text-white hover:bg-white/10 p-1.5 rounded-full transition-colors hidden sm:block"
                 >
-                  {isMaximized ? <Minimize className="w-4 h-4 sm:w-5 sm:h-5" /> : <Maximize className="w-4 h-4 sm:w-5 sm:h-5" />}
+                  {isMaximized ? <Minimize className="w-4 h-4" /> : <Maximize className="w-4 h-4" />}
                 </button>
                 <button 
                   onClick={() => setIsOpen(false)}
-                  className="text-white hover:bg-white/10 p-1.5 sm:p-2 rounded-full transition-colors"
+                  className="text-white hover:bg-white/10 p-1.5 rounded-full transition-colors"
                 >
-                  <X className="w-4 h-4 sm:w-5 sm:h-5" />
+                  <X className="w-4 h-4" />
                 </button>
               </div>
             </div>
           </div>
 
-          <div className="flex flex-col h-[calc(100%-5rem)] sm:h-[calc(100%-5rem)]">
+          <div className="flex flex-col h-[calc(100%-3.5rem)]">
             {/* Enhanced Messages Area */}
             <div className="flex-1 p-3 sm:p-6 overflow-y-auto bg-gray-50">
               {messages.map((msg, idx) => (
