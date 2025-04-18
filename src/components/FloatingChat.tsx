@@ -537,7 +537,7 @@ const FloatingChat: FC = () => {
       
       {isOpen && (
         <div
-          className={`fixed inset-0 sm:inset-auto sm:mt-4 bg-white border border-gray-200 sm:rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 ${
+          className={`fixed inset-0 sm:inset-auto sm:bottom-20 sm:right-6 sm:fixed bg-white border border-gray-200 sm:rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 ${
             isMaximized 
               ? "sm:w-[600px] sm:h-[750px]" 
               : "sm:w-[450px] sm:h-[650px]"
